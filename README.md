@@ -17,7 +17,7 @@ $ git push heroku master
 
 ### Usage
 
-[`http://mp3duration.herokuapp.com/?url=http://audio-dummies.s3.amazonaws.com/loremipsum.mp3`](http://mp3duration.herokuapp.com/?url=http://audio-dummies.s3.amazonaws.com/loremipsum.mp3)
+[http://mp3duration.herokuapp.com/?url=http://audio-dummies.s3.amazonaws.com/loremipsum.mp3](http://mp3duration.herokuapp.com/?url=http://audio-dummies.s3.amazonaws.com/loremipsum.mp3)
 
 
 ### Output
