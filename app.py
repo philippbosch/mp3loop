@@ -3,11 +3,13 @@ import os
 from subprocess import Popen, PIPE
 
 from flask import Flask, jsonify, request
+from flask_cors import cross_origin
 
 
 app = Flask(__name__)
 
 @app.route('/')
+@cross_origin(headers=['Content-Type'])
 def hello():
     url = request.args.get('url', None)
     if url is None or not len(url):
