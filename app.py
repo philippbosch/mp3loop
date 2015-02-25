@@ -17,7 +17,7 @@ def hello():
     output_duration = int(requested_duration) * 1.008120975
 
     directory = os.path.dirname(os.path.realpath(__file__))
-    std_out_err, std_in = popen2.popen4('ffmpeg -f concat -i %s/concat.txt -c copy -t %s -f mp3 pipe:1' % (directory, int(round(output_duration))))
+    std_out_err, std_in = popen2.popen4('bash -c "ffmpeg -f concat -i %s/concat.txt -c copy -t %s -f mp3 pipe:1"' % (directory, int(round(output_duration))))
 
     def f():
         for line in std_out_err:
