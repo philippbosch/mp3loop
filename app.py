@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello():
+def hi():
     requested_duration = request.args.get('duration', '')
     if not len(requested_duration):
         return '<h1>Usage</h1><p><code>http://mp3loop.herokuapp.com/?duration=<em>&lt;seconds&gt;</em></code></p>'
