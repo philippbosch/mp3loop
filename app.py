@@ -1,26 +1,27 @@
-import json
-import os
-from subprocess import Popen, PIPE
+import popen2
 
-from flask import Flask, jsonify, request
-from flask_cors import cross_origin
+from flask import Flask, request, Response
 
 
 app = Flask(__name__)
 
-@app.route('/')
-@cross_origin(headers=['Content-Type'])
-def hello():
-    url = request.args.get('url', None)
-    if url is None or not len(url):
-        return jsonify({'usage': 'http://mp3duration.herokuapp.com/?url=http://some/url/to/a/file.mp3'})
 
-    output = Popen(['ffprobe', '-print_format', 'json', '-show_entries', 'format=duration', '-i', url.replace('&', '\&')], stdout=PIPE).stdout.read()
-    data = json.loads(output)
-    if data.has_key('format'):
-        return jsonify({'seconds': data['format']['duration']})
-    else:
-        return jsonify({'error': 'Unable to retrieve file from URL'})
+@app.route('/')
+def hello():
+    requested_duration = request.args.get('duration', '')
+    if not len(requested_duration):
+        return '<h1>Usage</h1><p><code>http://mp3loop.herokuapp.com/?duration=<em>&lt;seconds&gt;</em></code></p>'
+
+    # The output tends to be a little shorter ...
+    output_duration = int(requested_duration) * 1.008120975
+
+    std_out_err, std_in = popen2.popen4('bash -c "for i in {1..2000}; do echo file \'audio.mp3\'; done | ffmpeg -f concat -i pipe:0 -c copy -t %s -f mp3 pipe:1"' % int(round(output_duration)))
+
+    def f():
+        for line in std_out_err:
+            yield line
+
+    return Response(f(), content_type='audio/mp3', headers={'Content-Disposition': 'inline; filename=loop-%s.mp3' % requested_duration})
 
 
 if __name__ == "__main__":
