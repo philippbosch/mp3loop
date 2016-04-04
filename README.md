@@ -1,14 +1,15 @@
-mp3duration
-===========
+mp3loop
+=======
 
-A simple web service that returns the duration of an MP3 file given as a URL
+A simple web service that creates an MP3 file of a given length that is the
+result of looping another MP3 file as many times as necessary.
 
 
 ### Installation
 
 ```shell
-$ git clone https://github.com/philippbosch/mp3duration.git
-$ cd mp3duration
+$ git clone https://github.com/philippbosch/mp3loop.git
+$ cd mp3loop
 $ heroku create your-app-name
 $ heroku config:set LD_LIBRARY_PATH=/app/.heroku/python/lib
 $ git push heroku master
@@ -17,13 +18,6 @@ $ git push heroku master
 
 ### Usage
 
-[http://your-app-name.herokuapp.com/?url=http://audio-dummies.s3.amazonaws.com/loremipsum.mp3](http://mp3duration.herokuapp.com/?url=http://audio-dummies.s3.amazonaws.com/loremipsum.mp3)
+[http://your-app-name.herokuapp.com/?duration=600](http://mp3loop.herokuapp.com/?duration=600)
 
-
-### Output
-
-```json
-{
-  "seconds": "34.115918"
-}
-```
+Replace `audio.mp3` in the root directory with the file you want to loop.
